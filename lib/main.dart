@@ -36,12 +36,12 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void _addNewTransaction(String title, int amount) {
+  void _addNewTransaction(String title, int amount, DateTime selectedDate) {
     final _newTransaction = Transaction(
       txId: DateTime.now().toString(),
       txTitle: title,
       txAmount: amount,
-      date: DateTime.now(),
+      date: selectedDate,
     );
     setState(() {
       _userTransactions.add(_newTransaction);
@@ -61,6 +61,12 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  void deleteTransctions(String id) {
+    setState(() {
+      _userTransactions.removeWhere((element) => element.txId == id);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,10 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: <Widget>[
             WeeklyView(_recentTransactions),
-            //NewTransaction(_addNewTransaction),
-            TransactionList(_userTransactions),
-            //transaction_list
-            //UserTransactions(),
+            TransactionList(_userTransactions, deleteTransctions),
           ],
         ),
       ),
