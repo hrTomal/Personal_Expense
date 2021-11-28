@@ -11,29 +11,33 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 530,
+      //height: 530,
       child: transactions.isEmpty
-          ? Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(20),
-                  alignment: Alignment.center,
-                  child: const Text(
-                    'ALL MONEY IS IN YOUR POCKET',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
+          ? LayoutBuilder(
+              builder: (cntxt, constraints) {
+                return Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(20),
+                      alignment: Alignment.center,
+                      child: const Text(
+                        'ALL MONEY IS IN YOUR POCKET',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  height: 150,
-                  child: Image.asset('assets/images/noexpense.png'),
-                )
-              ],
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      height: constraints.maxHeight * .6,
+                      child: Image.asset('assets/images/noexpense.png'),
+                    )
+                  ],
+                );
+              },
             )
           : ListView.builder(
               itemBuilder: (context, index) {
